@@ -1,0 +1,15 @@
+{
+  "name": "warp-tithe",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A dependency-free online Warhammer 40K inspired board game prototype.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "share": "ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o ExitOnForwardFailure=yes -R 80:127.0.0.1:3210 nokey@localhost.run",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
