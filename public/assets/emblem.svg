@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="亚空间骰子徽记">
+  <defs>
+    <linearGradient id="metal" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#e0c27a"/>
+      <stop offset="45%" stop-color="#a97234"/>
+      <stop offset="100%" stop-color="#56311e"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#05090b" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M80 10 137 41v68l-57 41-57-41V41Z" fill="#101b1c" stroke="url(#metal)" stroke-width="5"/>
+    <path d="M80 22 126 48v56l-46 33-46-33V48Z" fill="none" stroke="#a64a38" stroke-width="2" stroke-dasharray="8 7"/>
+    <path d="M52 55 80 38l28 17v34L80 106 52 89Z" fill="#c39a55" stroke="#432716" stroke-width="3"/>
+    <circle cx="67" cy="65" r="4" fill="#182021"/>
+    <circle cx="93" cy="65" r="4" fill="#182021"/>
+    <circle cx="80" cy="82" r="4" fill="#182021"/>
+    <path d="M31 43 52 55M129 43 108 55M31 107l21-18M129 107l-21-18" stroke="#d8c89d" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
