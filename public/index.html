@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#081012">
+  <title>亚空间什一税</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <section id="landingView" class="landing">
+      <div class="landing-sigil" aria-hidden="true">
+        <img src="/assets/emblem.svg" alt="">
+      </div>
+
+      <div class="landing-copy">
+        <p class="eyebrow">非官方战锤 40K 同人联机桌游</p>
+        <h1>亚空间什一税</h1>
+        <p class="landing-lead">投掷命运，占领星区，在亚空间吞没一切之前成为第 41 千年的统治者。</p>
+      </div>
+
+      <div class="entry-grid">
+        <form id="createForm" class="entry-panel">
+          <div class="panel-number">01</div>
+          <div class="entry-heading">
+            <h2>建立战区</h2>
+            <p>创建房间并邀请其他战争领主</p>
+          </div>
+          <label for="createName">战争领主名称</label>
+          <input id="createName" name="name" maxlength="14" autocomplete="nickname" placeholder="输入名称" required>
+          <button class="primary-button" type="submit">创建远征</button>
+        </form>
+
+        <form id="joinForm" class="entry-panel">
+          <div class="panel-number">02</div>
+          <div class="entry-heading">
+            <h2>接入战区</h2>
+            <p>输入四位房间代码加入战局</p>
+          </div>
+          <label for="joinName">战争领主名称</label>
+          <input id="joinName" name="name" maxlength="14" autocomplete="nickname" placeholder="输入名称" required>
+          <label for="roomCode">房间代码</label>
+          <input id="roomCode" name="roomCode" maxlength="6" autocomplete="off" placeholder="例如 A7K9" required>
+          <button class="secondary-button" type="submit">加入远征</button>
+        </form>
+      </div>
+
+      <div id="landingMessage" class="landing-message" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="gameView" class="game" hidden>
+      <header class="game-header">
+        <div class="brand-lockup">
+          <img src="/assets/emblem.svg" alt="">
+          <div>
+            <strong>亚空间什一税</strong>
+            <span id="phaseLabel">等待接入</span>
+          </div>
+        </div>
+
+        <div class="header-stats" aria-live="polite">
+          <div>
+            <span>回合</span>
+            <strong id="roundValue">0</strong>
+          </div>
+          <div>
+            <span>亚空间</span>
+            <strong id="doomValue">0 / 16</strong>
+          </div>
+          <div>
+            <span>统治目标</span>
+            <strong id="targetValue">12</strong>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="copyRoomButton" class="room-code-button" type="button">
+            <span>房间</span>
+            <strong id="roomCodeLabel">----</strong>
+          </button>
+          <div id="connectionStatus" class="connection-status" data-state="connecting">
+            <span class="connection-dot" aria-hidden="true"></span>
+            <span>连接中</span>
+          </div>
+          <button id="leaveButton" class="icon-text-button" type="button">退出</button>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <section class="board-column" aria-label="星区棋盘">
+          <div class="board-scroller">
+            <div id="board" class="board"></div>
+          </div>
+        </section>
+
+        <aside class="side-column">
+          <section class="side-panel command-panel">
+            <div class="panel-title">
+              <div>
+                <span class="section-label">战争领主</span>
+                <h2 id="commanderName">未接入</h2>
+              </div>
+              <span id="commanderFaction" class="faction-chip">未选择</span>
+            </div>
+
+            <div class="resource-strip">
+              <div>
+                <span>影响力</span>
+                <strong id="influenceValue">0</strong>
+              </div>
+              <div>
+                <span>统治点</span>
+                <strong id="dominionValue">0</strong>
+              </div>
+              <div>
+                <span>领地</span>
+                <strong id="holdingValue">0</strong>
+              </div>
+            </div>
+
+            <div id="lobbyControls" class="control-stack" hidden>
+              <div>
+                <span class="control-label">选择阵营</span>
+                <div id="factionGrid" class="faction-grid"></div>
+              </div>
+              <div class="button-row">
+                <button id="readyButton" class="secondary-button" type="button">准备</button>
+                <button id="startButton" class="primary-button" type="button" hidden>开始远征</button>
+              </div>
+              <p id="lobbyHint" class="inline-note"></p>
+            </div>
+
+            <div id="playControls" class="control-stack" hidden>
+              <div id="turnBanner" class="turn-banner" data-state="waiting">
+                <span id="turnKicker">等待行动</span>
+                <strong id="turnTitle">等待其他战争领主</strong>
+              </div>
+              <div id="diceTray" class="dice-tray" aria-label="骰子">
+                <div class="die" data-value=""></div>
+                <div class="die" data-value=""></div>
+              </div>
+              <p id="eventText" class="event-text">等待命运降临。</p>
+              <div class="action-grid">
+                <button id="rollButton" class="primary-button action-wide" type="button">投掷 D12</button>
+                <button id="claimButton" class="secondary-button" type="button">占领</button>
+                <button id="upgradeButton" class="secondary-button" type="button">升级</button>
+                <button id="titheButton" class="attention-button" type="button">缴纳什一税</button>
+                <button id="invadeButton" class="danger-button" type="button">发动入侵</button>
+                <button id="endButton" class="quiet-button action-wide" type="button">结束回合</button>
+              </div>
+            </div>
+
+            <div id="resultControls" class="control-stack" hidden>
+              <div class="result-panel">
+                <span>远征结束</span>
+                <strong id="resultTitle"></strong>
+                <p id="resultDetail"></p>
+              </div>
+              <button id="restartButton" class="primary-button" type="button" hidden>重返轨道</button>
+            </div>
+          </section>
+
+          <section class="side-panel players-panel">
+            <div class="panel-title compact">
+              <div>
+                <span class="section-label">战区态势</span>
+                <h2>战争领主</h2>
+              </div>
+              <span id="playerCount" class="count-chip">0 / 4</span>
+            </div>
+            <div id="playerList" class="player-list"></div>
+          </section>
+
+          <section class="side-panel log-panel">
+            <div class="panel-title compact">
+              <div>
+                <span class="section-label">实时记录</span>
+                <h2>远征日志</h2>
+              </div>
+            </div>
+            <ol id="logList" class="log-list" aria-live="polite"></ol>
+          </section>
+        </aside>
+      </main>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+</body>
+</html>
