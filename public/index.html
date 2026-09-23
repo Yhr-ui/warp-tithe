@@ -11,6 +11,7 @@
 <body>
   <div id="app">
     <section id="landingView" class="landing">
+      <div class="landing-art" aria-hidden="true"></div>
       <div class="landing-sigil" aria-hidden="true">
         <img src="/assets/emblem.svg" alt="">
       </div>
@@ -48,6 +49,9 @@
       </div>
 
       <div id="landingMessage" class="landing-message" role="status" aria-live="polite"></div>
+      <p class="asset-credit">
+        深空影像：NASA/JPL-Caltech / NASA, ESA, HST Frontier Fields Team (STScI)
+      </p>
     </section>
 
     <section id="gameView" class="game" hidden>
@@ -65,13 +69,38 @@
             <span>回合</span>
             <strong id="roundValue">0</strong>
           </div>
-          <div>
+          <div id="doomStat" class="doom-stat" tabindex="0" aria-describedby="doomTooltip">
             <span>亚空间</span>
-            <strong id="doomValue">0 / 16</strong>
+            <strong id="doomValue">0 / 40</strong>
+            <div id="doomTooltip" class="doom-tooltip" role="tooltip">
+              <strong>亚空间压力阈值</strong>
+              <ul>
+                <li id="doomEffect8">
+                  <b>8</b>
+                  <span>恐虐狂潮：随机三个领土降 1 级，降到 0 级变为无主</span>
+                </li>
+                <li id="doomEffect16">
+                  <b>16</b>
+                  <span>色孽之祸：随机侵蚀三个地块，踏入者被禁锢两个回合</span>
+                </li>
+                <li id="doomEffect24">
+                  <b>24</b>
+                  <span>奸奇之谋：所有商店停售，进入商店会被随机传送</span>
+                </li>
+                <li id="doomEffect32">
+                  <b>32</b>
+                  <span>纳垢降临：纳垢本体行动五回合，占领领土在离场后化为无主废土</span>
+                </li>
+                <li id="doomEffect40">
+                  <b>40</b>
+                  <span>大裂痕：游戏结束，统治点最高者获胜</span>
+                </li>
+              </ul>
+            </div>
           </div>
           <div>
             <span>统治目标</span>
-            <strong id="targetValue">12</strong>
+            <strong id="targetValue">20</strong>
           </div>
         </div>
 
@@ -96,6 +125,17 @@
         </section>
 
         <aside class="side-column">
+          <div class="side-stack">
+          <section class="side-panel log-panel">
+            <div class="panel-title compact">
+              <div>
+                <span class="section-label">实时记录</span>
+                <h2>远征日志</h2>
+              </div>
+            </div>
+            <ol id="logList" class="log-list" aria-live="polite"></ol>
+          </section>
+
           <section class="side-panel command-panel">
             <div class="panel-title">
               <div>
@@ -120,11 +160,27 @@
               </div>
             </div>
 
+            <div class="inventory-panel">
+              <span class="control-label">道具背包</span>
+              <div id="inventoryList" class="inventory-list"></div>
+            </div>
+
+            <section id="skillPanel" class="skill-panel">
+              <div class="skill-panel-head">
+                <span class="control-label">初始技能</span>
+                <small id="skillCooldown"></small>
+              </div>
+              <strong id="skillName">开局随机抽取</strong>
+              <p id="skillDescription">远征开始后随机获得一项被动或主动技能。</p>
+              <div id="skillTargets" class="skill-targets"></div>
+            </section>
+
             <div id="lobbyControls" class="control-stack" hidden>
               <div>
                 <span class="control-label">选择阵营</span>
                 <div id="factionGrid" class="faction-grid"></div>
               </div>
+              <button id="addBotButton" class="quiet-button" type="button">添加 AI</button>
               <div class="button-row">
                 <button id="readyButton" class="secondary-button" type="button">准备</button>
                 <button id="startButton" class="primary-button" type="button" hidden>开始远征</button>
@@ -142,14 +198,37 @@
                 <div class="die" data-value=""></div>
               </div>
               <p id="eventText" class="event-text">等待命运降临。</p>
+              <div id="invasionPreview" class="invasion-preview" hidden>
+                <div>
+                  <span>失败预计损失</span>
+                  <strong id="invasionFailureLoss">0</strong>
+                </div>
+                <div>
+                  <span>平局预计损失</span>
+                  <strong id="invasionDrawLoss">0</strong>
+                </div>
+                <small id="invasionBreakdown"></small>
+              </div>
               <div class="action-grid">
                 <button id="rollButton" class="primary-button action-wide" type="button">投掷 D12</button>
                 <button id="claimButton" class="secondary-button" type="button">占领</button>
                 <button id="upgradeButton" class="secondary-button" type="button">升级</button>
                 <button id="titheButton" class="attention-button" type="button">缴纳什一税</button>
                 <button id="invadeButton" class="danger-button" type="button">发动入侵</button>
+                <button id="teleportButton" class="teleport-button action-wide" type="button">星系跃迁</button>
                 <button id="endButton" class="quiet-button action-wide" type="button">结束回合</button>
               </div>
+              <section id="shopPanel" class="shop-panel" hidden>
+                <div class="shop-panel-head">
+                  <div>
+                    <span class="section-label">星际商店</span>
+                    <strong id="shopTitle">贸易节点</strong>
+                  </div>
+                  <span id="shopModeLabel" class="shop-mode-chip">营业中</span>
+                </div>
+                <div id="shopItems" class="shop-items"></div>
+                <p id="shopHint" class="inline-note"></p>
+              </section>
             </div>
 
             <div id="resultControls" class="control-stack" hidden>
@@ -161,27 +240,38 @@
               <button id="restartButton" class="primary-button" type="button" hidden>重返轨道</button>
             </div>
           </section>
+          </div>
 
+          <div class="side-stack">
           <section class="side-panel players-panel">
             <div class="panel-title compact">
               <div>
                 <span class="section-label">战区态势</span>
                 <h2>战争领主</h2>
               </div>
-              <span id="playerCount" class="count-chip">0 / 4</span>
+              <span id="playerCount" class="count-chip">0 / 6</span>
             </div>
             <div id="playerList" class="player-list"></div>
           </section>
 
-          <section class="side-panel log-panel">
+          <section id="planetInfoPanel" class="side-panel planet-info-panel">
             <div class="panel-title compact">
               <div>
-                <span class="section-label">实时记录</span>
-                <h2>远征日志</h2>
+                <span class="section-label">星球档案</span>
+                <h2 id="planetInfoName">选择一颗星球</h2>
               </div>
+              <span id="planetInfoGalaxy" class="galaxy-chip">星区</span>
             </div>
-            <ol id="logList" class="log-list" aria-live="polite"></ol>
+            <div class="planet-info-visual" aria-hidden="true">
+              <span id="planetInfoGlyph">?</span>
+              <span id="planetInfoType">未知区域</span>
+            </div>
+            <p id="planetInfoDescription" class="planet-info-description">
+              点击棋盘上的星球查看详细信息。
+            </p>
+            <div id="planetInfoStats" class="planet-info-stats"></div>
           </section>
+          </div>
         </aside>
       </main>
     </section>
