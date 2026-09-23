@@ -1,0 +1,16 @@
+{
+	"telemetryDisabled": false,
+	"cliId": "57b74292-caed-48c4-999a-590730b8b55e",
+	"userId": "6ab295bd789eb5fc58e1a7c7",
+	"users": {
+		"6ab295bd789eb5fc58e1a7c7": {
+			"id": "6ab295bd789eb5fc58e1a7c7",
+			"name": null,
+			"email": "2799736127@qq.com",
+			"auth": {
+				"token": "nfc_87p6dCP7kW1A29kV6HKn8G2L9o7PL67D3385",
+				"github": {}
+			}
+		}
+	}
+}
