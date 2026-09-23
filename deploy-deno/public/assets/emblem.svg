@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240" role="img" aria-label="亚空间什一税原创徽记">
+  <defs>
+    <linearGradient id="outerMetal" x1="20%" y1="0%" x2="78%" y2="100%">
+      <stop offset="0%" stop-color="#f2d99a"/>
+      <stop offset="22%" stop-color="#bc8645"/>
+      <stop offset="56%" stop-color="#69401f"/>
+      <stop offset="78%" stop-color="#b07435"/>
+      <stop offset="100%" stop-color="#352015"/>
+    </linearGradient>
+    <linearGradient id="innerMetal" x1="30%" y1="10%" x2="70%" y2="90%">
+      <stop offset="0%" stop-color="#f4e5b6"/>
+      <stop offset="48%" stop-color="#a8753a"/>
+      <stop offset="100%" stop-color="#4a2c1a"/>
+    </linearGradient>
+    <radialGradient id="voidCore" cx="42%" cy="38%" r="72%">
+      <stop offset="0%" stop-color="#f8e9b0"/>
+      <stop offset="14%" stop-color="#a8d8cf"/>
+      <stop offset="34%" stop-color="#1a5656"/>
+      <stop offset="68%" stop-color="#111b1f"/>
+      <stop offset="100%" stop-color="#05090b"/>
+    </radialGradient>
+    <radialGradient id="riftGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9d68" stop-opacity=".95"/>
+      <stop offset="45%" stop-color="#bd4937" stop-opacity=".72"/>
+      <stop offset="100%" stop-color="#5e1820" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dropShadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#020405" flood-opacity=".72"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" seed="14"/>
+      <feColorMatrix values="0 0 0 0 0.9 0 0 0 0 0.76 0 0 0 0 0.46 0 0 0 .14 0"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#dropShadow)">
+    <path d="M110 7 201 57v104l-91 72-91-72V57Z" fill="#081012" stroke="url(#outerMetal)" stroke-width="7"/>
+    <path d="M110 20 188 63v91l-78 61-78-61V63Z" fill="none" stroke="#cfaa63" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M110 31 177 68v79l-67 53-67-53V68Z" fill="#101d20" stroke="#603823" stroke-width="3"/>
+
+    <circle cx="110" cy="117" r="56" fill="none" stroke="#a65a3d" stroke-width="2" stroke-dasharray="8 7"/>
+    <circle cx="110" cy="117" r="46" fill="none" stroke="url(#innerMetal)" stroke-width="2"/>
+    <path d="M110 58 161 147H59Z" fill="none" stroke="#d7b56d" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M67 82 110 149 153 82" fill="none" stroke="#7f4f31" stroke-width="5" stroke-linecap="round"/>
+
+    <circle cx="110" cy="116" r="29" fill="url(#voidCore)" stroke="#ead49b" stroke-width="3"/>
+    <path d="M87 118c20-18 37-18 48 0-17 17-34 17-48 0Z" fill="#061012" stroke="#b88a4a" stroke-width="2"/>
+    <ellipse cx="111" cy="117" rx="7" ry="10" fill="#f3df9f"/>
+    <path d="M111 104v27M99 113l24 8M99 123l24-8" stroke="#772f2d" stroke-width="2" stroke-linecap="round"/>
+
+    <g fill="url(#innerMetal)" stroke="#4b2c1a" stroke-width="3">
+      <circle cx="110" cy="36" r="11"/>
+      <circle cx="44" cy="154" r="11"/>
+      <circle cx="176" cy="154" r="11"/>
+    </g>
+    <g fill="#0a1517">
+      <circle cx="110" cy="36" r="4"/>
+      <circle cx="44" cy="154" r="4"/>
+      <circle cx="176" cy="154" r="4"/>
+    </g>
+    <path d="M86 45 44 142M134 45l42 97M55 154h110" fill="none" stroke="#d9bc78" stroke-opacity=".7" stroke-width="2"/>
+
+    <path d="M55 70 20 46M165 70l35-24M46 103H15M174 103h31M68 170l-25 26M152 170l25 26"
+      fill="none" stroke="#e6cf96" stroke-width="4" stroke-linecap="round"/>
+    <path d="M29 38h22M169 38h22M8 94h18M194 94h18M35 205h22M163 205h22"
+      fill="none" stroke="#9d5938" stroke-width="4" stroke-linecap="round"/>
+
+    <circle cx="110" cy="116" r="39" fill="url(#riftGlow)" opacity=".22" filter="url(#glow)"/>
+    <path d="M70 94c24-16 49 13 83-8" fill="none" stroke="#e47d52" stroke-opacity=".44" stroke-width="4" filter="url(#glow)"/>
+    <circle cx="110" cy="117" r="64" fill="none" stroke="#f1d89b" stroke-opacity=".16" stroke-width="1" stroke-dasharray="2 10"/>
+  </g>
+  <path d="M0 0h220v240H0Z" filter="url(#grain)" opacity=".18"/>
+</svg>
